@@ -1,0 +1,76 @@
+
+
+body{
+    overflow: initial;
+}
+.avatar-group{
+    height: 50px;
+}
+img{
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
+.media .avatar{
+    height: 50px;
+}
+
+.website-header-style{
+    background: linear-gradient(130deg, #1818e4b8, #5d1a06);
+    border-color: #3490dc;
+    text-transform: uppercase;
+    
+}
+.website-header-style h3{
+     color: #fafafa;
+     padding: 10px;
+}
+.left-sidebar-website{
+    border: 2px solid #fafafa;
+}
+.logo-container{
+    background: transparent;
+}
+.logo-container img{
+    transform: scale(.5);
+}
+
+.left-side-avater-section{
+    min-height: 100px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.left-side-avater-section .left-avater, h3{
+    flex: 1;
+}
+.left-side-avater-section .left-avater{
+    height: 100px;
+    width: 100%;
+    text-align: center;
+}
+
+.control-panel{
+    width: 100%;
+    background: #d3d3d3;
+    padding: 5px;
+}
+
+.right-side div{
+    margin:0px 10px;
+}
+.project-btn{
+    border-radius: 8px;
+    padding: 5px;
+    background: #5a48ae;
+    font-weight: 600;
+    font-family: sans-serif;
+}
+.form-container{
+    border: 0.5px solid rgba(0, 0, 0, 0.19);
+    padding: 10px;
+    margin-bottom: 5px;
+}
+
+

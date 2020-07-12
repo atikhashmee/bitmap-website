@@ -1,0 +1,132 @@
+/*
+Only five prototypes are provided, and the function must be implemented as described in the annotation.
+Because the parameters of the function call are incomplete, replace them with the appropriate parameters for the function.
+*/
+#include <stdio.h>
+#include <stdlib.h>
+#include <iostream>
+#include <time.h>
+
+#define ROWS 30
+#define COLS 40
+
+using namespace std;
+
+void initializeMatrix(int (*a)[COLS], int); 
+void randomWalk(int (*a)[COLS], int);
+int findMAX(int(*a)[COLS], int);
+float getAverage(int(*a)[COLS], int);
+void showMatrix(int (*a)[COLS], int);
+
+int main(void)
+{
+	srand(time(NULL));
+	int A[ROWS][COLS];
+	int select;
+	while (1)
+	{
+		int n = 0, average = 0;
+		//Test the output 5 after menu 1 runs. Run menu 2 and test with output 5.
+		cout << "\nSelect command 1: initialize matrix, 2: random walk,  3: find MAX, 4: get Average, 5. Display, 6: Quit => ";
+		scanf(" ***", select);
+		switch (select) {
+		case 1:
+			initializeMatrix(A, …);
+			break;
+
+		case 2:
+			randomWalk(A, …);
+			break;
+
+		case 3:
+			n = findMAX(A, …);
+			printf("MAX = %d\n", n);
+			break;
+		case 4:
+			average = getAverage(A, …);
+			printf("avergae = %???\n", average);//Output to two decimal places, using% f
+			break;
+		case 5:
+			showMatrix(A, …);
+			break;
+		default:
+			exit(0);
+			break;
+		}
+	}
+	system("pause");
+	return 0;
+}
+/*
+Create a function that initializes all elements to zero using the variable b.
+The array a should be connected to * b as shown in the code below.
+*/
+void initializeMatrix(int(*a)[COLS], int rows)
+{
+	int *current;
+	int *endArray;
+	for (current = &a[0][0], endArray = current + ...; current < endArray; current++)
+	{
+		//body to be implemented
+	}
+
+}
+/*
+Create a random number i, j, and write a function that iterates up the array a [i] [j] by 1.
+The termination condition of the iteration is to terminate the loop if all elements of array a have been incremented more than once, that is, when all elements are not zero.
+Do not use the array [] [] format, use a format such as **, * [] instead.
+
+Tip. How to generate a random number: rand ()% n; , n is the maximum value + 1
+ ex) If you want to create 0 <= i <= 10 => int i = rand ()% 11;
+*/
+
+
+void randomWalk(int (*a)[COLS], int row)
+{
+	//body to be implemented
+
+}
+
+/*
+ Create a function that returns the largest of all elements in the array.
+ The array a to be passed in must be used in connection with the new array c.
+ Do not use the array [] [] format, instead use a pointer type such as * c.
+*/
+
+int findMAX(int(*a)[COLS], int rows)
+{
+	int *c[COLS];
+	//body to be implemented
+
+}
+/*
+ Create a function that calculates and returns the average value of all the elements in the array.
+ The array a passed in must be connected to * t and ** p as shown in the code below.
+ Do not use the array [] [] method, instead use a pointer type such as * p.
+*/
+
+float getAverage(int(*a)[COLS], int rows)
+{
+	int *t = *a;
+	int **p;
+	p = &t;
+	//body to be implemented
+
+}
+/*
+ Write a function that prints all the elements in the array as a checkerboard matrix on the screen.
+ The array a passed in must be connected to * pt and ** p as shown in the code below.
+ Do not use the array [] [] method, instead use a pointer type such as * p
+*/
+
+void showMatrix(int (*a)[COLS], int rows)
+{
+	int *pt;
+	int **p;
+	pt = &a[0][0];
+	p = &pt;
+	printf("showMatrix:: Matrix displayed\n");
+	// body to be implemented
+	printf("\n\n");
+}
+

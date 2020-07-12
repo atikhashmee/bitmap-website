@@ -1,0 +1,34 @@
+@extends('layouts.app')
+
+@section('content')
+
+              
+                    
+                         <div class="row">
+                             <div class="col-md-3">
+                                @include('components.accounts.menu')
+                                 
+                             </div>
+                             <div class="col-md-9">
+                                  <div class="card content-section">
+                                      
+                                      <div class="card-header  content-header" > 
+                                        <h4>Treasures</h4>
+                                        <a href="{!! route('treasures.create') !!}" 
+                                        class='btn btn-warning float-right' 
+                                        style="position:absolute;top:10px;right:10px;"> Add new</a>
+                                      
+                                      </div>
+                                      <div class="card-body">
+                                          @include('flash::message')
+                                          @include('components.accounts.treasures.table')
+                                       </div>
+                                       <div class="card-footer">
+                                       </div>
+                                  </div>
+                             </div>
+                         </div>
+                    
+    
+@endsection
+
