@@ -20,6 +20,8 @@ class CreateHomeSlidersTable extends Migration
             $table->string('project_url', 100)->nullable();
             $table->date('project_date')->nullable();
             $table->string('image_link', 200)->nullable();
+            $table->string('visibilty', 200)->nullable();
+            $table->integer('image_order')->default(0);
             $table->timestamps();
         });
     }

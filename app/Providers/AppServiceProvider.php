@@ -19,13 +19,13 @@ class AppServiceProvider extends ServiceProvider
         
         Schema::defaultStringLength(191);
         
-        Relation::morphMap([
-            'client'  => 'App\ClientsLists',
-            'account' => 'App\Models\Accounts\Treasures',
-            'project' => 'App\Models\Project\Project'
-        ]);
+        // Relation::morphMap([
+        //     'client'  => 'App\ClientsLists',
+        //     'account' => 'App\Models\Accounts\Treasures',
+        //     'project' => 'App\Models\Project\Project'
+        // ]);
 
-        view()->share('global',availableTaka());
+        // view()->share('global',availableTaka());
 
         
     }
@@ -37,9 +37,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-       $this->app->singleton('foo',function(){
-            return new \App\Acme\FooBar();
-        });
+    //    $this->app->singleton('foo',function(){
+    //         return new \App\Acme\FooBar();
+    //     });
 
         
     }

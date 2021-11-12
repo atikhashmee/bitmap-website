@@ -46,7 +46,6 @@ Route::get('/', function () {
                 $homestyleobj->save();
           
        }
-
        //check for homesettings 
          
          if (AppSetting::first() == null) {
