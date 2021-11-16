@@ -23,7 +23,7 @@ class AboutController extends Controller
         }
         
         return view("components.website-control.about.aboutus")
-        ->with("aboutinfo",About::find(1));
+        ->with("aboutinfo", About::find(1));
     }
 
     /**

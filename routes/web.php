@@ -159,6 +159,7 @@ Route::group(['prefix' => 'Admin', 'as' => 'admin.'], function () {
      });
 
     Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/services', 'HomeController@servicePage')->name('service_page');
 
     Route::get('/homeSliders', function () {
         return view("components.website-control.sliders.homeslider")
@@ -210,21 +211,6 @@ Route::group(['prefix' => 'Admin', 'as' => 'admin.'], function () {
 
 
 // services 
-    Route::any('/Services', function () {
-
-          $service = App\ServiceBg::find(1);
-          if ($service == null) {
-            App\ServiceBg::firstOrCreate(
-                ['service_headline' => 'Bitmap Services']
-            );
-          }
-    
-        return view("components.website-control.services.services")
-            ->with("bg", App\ServiceBg::find(1))
-            ->with("allservices", App\ServiceHolder::all())
-            ->with("shortservicelists", App\ServicesLists::all())
-            ->with('client_lists', App\ClientsLists::all());
-    })->name('servic');
 
     Route::any('/SaveBgInfo', "ServicesController@updateBg");
     Route::any('/SaveserviceInfo', "ServicesController@store");
