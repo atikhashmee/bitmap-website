@@ -147,7 +147,7 @@ Route::get('/About', function () {
 
   
 
-Route::group(['prefix' => 'Admin'], function () {
+Route::group(['prefix' => 'Admin', 'as' => 'admin.'], function () {
 
     Route::any('/', function () {
          return redirect('Admin/login');
@@ -161,13 +161,12 @@ Route::group(['prefix' => 'Admin'], function () {
     Route::get('/home', 'HomeController@index')->name('home');
 
     Route::get('/homeSliders', function () {
-        return view("components.website-control.sliders.homeslider")->with("sliders", \App\HomeSlider::orderBy('image_order')->get());
+        return view("components.website-control.sliders.homeslider")
+        ->with("sliders", \App\HomeSlider::orderBy('image_order')->get());
     })->name('sliders');
-
+    Route::resource('sliders', HomeSliderController::class);
     // for ajax request
-     Route::any('reorder_image_slider', "HomeSliderController@reorders");
-
-
+    Route::any('reorder_image_slider', "HomeSliderController@reorders");
     Route::post('/addnewsliderinfo', "HomeSliderController@store");
     Route::get('/edit_slider_info/{id}', "HomeSliderController@show");
     Route::post('/updateSlider/{id}', "HomeSliderController@edit");

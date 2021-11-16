@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\HomeSlider;
 use Illuminate\Http\Request;
 
 
@@ -24,9 +25,11 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index( Request $r)
+    public function index(Request $request)
     {
+      $data = [];
+      $data['sliders'] = HomeSlider::orderBy('image_order')->get();
         
-      return view('home');
+      return view('home', $data);
     }
 }

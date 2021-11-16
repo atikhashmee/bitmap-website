@@ -70,25 +70,22 @@ class AppSettingController extends Controller
      */
     public function update(Request $r, AppSetting $appSetting)
     {
-            $appsettings = AppSetting::find(1);
-             
-             
-         
-         $logo="";
-         $pavicon = "";
-         if ($r->hasFile('logofile')) {
-             Storage::disk('public')->delete($appsettings->logo);
+        $appsettings = AppSetting::find(1);
+        $logo="";
+        $pavicon = "";
+        if ($r->hasFile('logofile')) {
+            Storage::disk('public')->delete($appsettings->logo);
             $logo = $r->file("logofile")->store("settings","public");
-         }else 
-         $logo = $appsettings->logo;
+        } else {
+            $logo = $appsettings->logo;
+        }
          
-         if ($r->hasFile('feviconfile')) {
-             Storage::disk('public')->delete($appsettings->fevicon);
+        if ($r->hasFile('feviconfile')) {
+            Storage::disk('public')->delete($appsettings->fevicon);
             $pavicon  = $r->file("feviconfile")->store("settings","public");
-         }
-         else 
+        } else {
             $pavicon = $appsettings->fevicon;
-
+        }
 
         AppSetting::where("id",1)->update([
                  'logo'  =>  $logo,
@@ -102,6 +99,7 @@ class AppSettingController extends Controller
                  'twitter'  =>$r->input('twitterlink'),
                 'instagram' =>$r->input('instlink')
         ]);
+
         return redirect()->back()->withStatus("Settings updated");
     }
 
