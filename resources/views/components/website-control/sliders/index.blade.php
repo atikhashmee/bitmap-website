@@ -22,8 +22,12 @@
             <td>{{ $slider->project_url  }}</td>
             <td> <img src="{{ asset('storage/'.$slider->image_link) }}" width="30" alt=""> </td>
             <td>  
-                <a href="{{ url('Admin/edit_slider_info/'.$slider->id) }}" class="btn btn-sm project-btn btn-warning">Edit</a> 
-                <a href="{{ url('Admin/removeItem/'.$slider->id) }}" onclick="return confirm('Are you sure?')" class="btn btn-sm btn-danger project-btn">delete</a> 
+                <a href="{{route('admin.sliders.edit', ["slider" => $slider->id])}}" class="btn btn-sm btn-warning">Edit</a>
+                <a href="javascript:void(0)" onclick="return confirm('Are you sure?') ? document.querySelector('#delete_slider').submit(): ''" class="btn btn-sm btn-danger">delete</a> 
+                <form action="{{route('admin.sliders.destroy', ["slider" => $slider->id])}}" id="delete_slider" method="post">
+                    @csrf
+                    @method("DELETE")
+                </form>
             </td>
             </tr>
         @endforeach

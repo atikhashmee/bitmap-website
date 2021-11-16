@@ -21,7 +21,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="example-text-input" class="col-form-label">Header Title</label>
-                            <input class="form-control" type="text" onkeypress="wordLimit(event)"  id="headertitle" name="headertitle">
+                            <input class="form-control" type="text" onkeypress="wordLimit(event)" value="{{old('headertitle')}}"  id="headertitle" name="headertitle">
                             <small>( No more than 6 words )</small>
                             <small id="wordcounter" class="pull-right">6</small>
                         </div>
@@ -29,7 +29,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="example-url-input" class="col-form-label">URL</label>
-                            <input class="form-control" type="text"  placeholder="www.studiobitmap.com" id="url" name="url">
+                            <input class="form-control" type="text"  placeholder="www.studiobitmap.com" value="{{old('url')}}"  id="url" name="url">
                         </div>
                     </div>
                 </div>
@@ -37,11 +37,11 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="example-date-input" class="col-form-label">Date</label>
-                            <input class="form-control" type="date" value="2018-03-05" name="date" id="example-date-input">
+                            <input class="form-control" type="date" value="{{old('date')}}" name="date" id="example-date-input">
                         </div>
                         <div class="form-group">
                             <label for="example-search-input" class="col-form-label">Description</label>
-                            <textarea class="form-control"  id="description" name="description"></textarea>
+                            <textarea class="form-control"  id="description" name="description">{{old('description')}}</textarea>
                         </div>
                         <div class="form-group">
                             <label for="example-search-input" class="col-form-label">Make this slider visible</label>

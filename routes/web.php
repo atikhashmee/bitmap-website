@@ -164,13 +164,10 @@ Route::group(['prefix' => 'Admin', 'as' => 'admin.'], function () {
         return view("components.website-control.sliders.homeslider")
         ->with("sliders", \App\HomeSlider::orderBy('image_order')->get());
     })->name('sliders');
-    Route::resource('sliders', HomeSliderController::class);
-    // for ajax request
+
+    
     Route::any('reorder_image_slider', "HomeSliderController@reorders");
-    Route::post('/addnewsliderinfo', "HomeSliderController@store");
-    Route::get('/edit_slider_info/{id}', "HomeSliderController@show");
-    Route::post('/updateSlider/{id}', "HomeSliderController@edit");
-    Route::get('/removeItem/{id}', "HomeSliderController@destroy");
+    Route::resource('sliders', HomeSliderController::class);
 
 
 
