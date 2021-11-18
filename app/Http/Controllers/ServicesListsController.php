@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ServicesLists;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class ServicesListsController extends Controller
 {
@@ -34,26 +35,30 @@ class ServicesListsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $r)
+    public function store(Request $request)
     {
-        $r->validate([
-             'list_avater' => 'required',
-             'list_title' => 'required',
-             'short_description' => 'max:200'
+        $Validator = Validator::make($request->all(), [
+            'list_avater' => 'required',
+            'list_title' => 'required',
+            'short_description' => 'max:200'
         ]);
 
+        if ($Validator->fails()) {
+            return redirect()->back()->withErrors($Validator, "service_list")->withInput();
+        }
+        
         $coverphoto = "";
 
-        if ($r->hasFile('list_avater')) {
-            Storage::disk('public')->delete(trim($r->input("bgseimage")));
-            $coverphoto = $r->file("list_avater")->store("ServicesList","public") ;
+        if ($request->hasFile('list_avater')) {
+            Storage::disk('public')->delete(trim($request->input("bgseimage")));
+            $coverphoto = $request->file("list_avater")->store("ServicesList","public") ;
         } else {
-            $coverphoto = $r->input("bgseimage");
+            $coverphoto = $request->input("bgseimage");
         }
 
         ServicesLists::create([
-            'list_title' => $r->input( 'list_title'),
-            'short_description'=>  $r->input('short_description'),
+            'list_title' => $request->input( 'list_title'),
+            'short_description'=>  $request->input('short_description'),
                'img' => $coverphoto
         ]);
         return redirect()->back()->withStatus("Data has been Saved");

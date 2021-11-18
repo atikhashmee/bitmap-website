@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\ServiceBg;
 use App\ServiceHolder;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class ServicesController extends Controller
 {
@@ -50,27 +51,32 @@ class ServicesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $r)
+    public function store(Request $request)
     {
-           
-             $validated =  $r->validate([
-                  "servicetitle" => 'required',
-                  "services_photo" => 'mimes:png',
-                 ]);
 
-              $coverphoto = "";
-              
-              if ($r->hasFile('service_cover_photo')) {
-                   $coverphoto = $r->file("service_cover_photo")->store("Services","public");
-              }
-            ServiceHolder::create([
-                    "service_name" => $r->input('servicetitle'), 
-                    "about_service" => $r->input('about_project'), 
-                    "long_about_sevice" => $r->input('pro_detail'), 
-                    "date_time" => $r->input('date'), 
-                    "price" => $r->input('price'), 
-                    "services_photo" => $coverphoto
-            ]);
+        $Validator = Validator::make($request->all(), [
+            "service_title" => 'required',
+            "service_cover_photo" => 'required|mimes:png',
+        ]);
+
+        if ($Validator->fails()) {
+            return redirect()->back()->withErrors($Validator, "what_we_do")->withInput();
+        }
+
+        $coverphoto = "";
+
+        if ($request->hasFile('service_cover_photo')) {
+            $coverphoto = $request->file("service_cover_photo")->store("Services","public");
+        }
+
+        ServiceHolder::create([
+                "service_name" => $request->input('service_title'), 
+                "about_service" => $request->input('about_project'), 
+                "long_about_sevice" => $request->input('pro_detail'), 
+                "date_time" => $request->input('date'), 
+                "price" => $request->input('price'), 
+                "services_photo" => $coverphoto
+        ]);
 
         return redirect()->back()->withStatus("Data has been Saved");
            
@@ -95,7 +101,7 @@ class ServicesController extends Controller
      */
     public function edit($id)
     {
-        return view( 'components.website-control.services.services-edit')
+        return view('components.website-control.services.services-edit')
         ->with('editinfo',ServiceHolder::find($id));
     }
 

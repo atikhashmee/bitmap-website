@@ -12,7 +12,9 @@ use Illuminate\Support\Facades\Route;
 class FooBar
 {
     private $servicen;
-    function getFooBar(){ return $this->servicen; }
+    function getFooBar() { 
+        return $this->servicen; 
+    }
 
 
     public function setImage($service){
@@ -44,22 +46,25 @@ class FooBar
         return TeamMembers::where("team_types_id",$id)->get();
     }
 
-    public function wordLimitForServicePage($str,$limit){
-        
+    public function wordLimitForServicePage($str,$limit) {
        
         $words = explode(" ", $str);
         $shown_string = "";
-        if ( count($words) != 0 && !empty($str)) {
-            for ($i=0; $i <$limit; $i++) { 
-                $shown_string .= $words[$i]." ";
+        if (count($words) > $limit) {
+            if ( count($words) != 0 && !empty($str)) {
+                for ($i=0; $i <$limit; $i++) { 
+                    $shown_string .= $words[$i]." ";
+                }
             }
+        } else {
+            $shown_string .= $str;
         }
        
         $shown_string .= " <a href='#'>Readmore...</a>";
         echo $shown_string;
     }
 
-    public function getPageName(){
+    public function getPageName() {
        $name =  Route::current()->uri;
        if ( $name == 'About') {
             return "About Bitmap";
@@ -75,38 +80,30 @@ class FooBar
        }
     }
 
-    public function isSaleryKeySetup($u_id,$s_key=""){
+    public function isSaleryKeySetup($u_id,$s_key="") {
         $itemcontent = array();
         if (!empty($s_key)) {
             $items =  SetupSelery::where('employee_id', $u_id)->where('salery_key_id', $s_key)->get();
-           
-            if (count($items)>0) {
-             foreach($items as $item){
-                 $itemcontent =[
+            if (count($items) > 0) {
+             foreach($items as $item) {
+                 $itemcontent = [
                       'item_id' => $item->salery_key_id,
                       'item_amount' => $item->amount,
                       'token' => "true"
                  ];
-                 
               }
               return $itemcontent;
-            }else{
-             $itemcontent =[
-                 
-                 'token' => "false"
-            ];
-            return $itemcontent;
-     
+            } else {
+                $itemcontent =[
+                    'token' => "false"
+                ];
+                return $itemcontent;
             }
-        }
-        else{
+        } else {
             $items =  SetupSelery::where('employee_id', $u_id)->count();
             return $itemcontent = [ 'total_number' => $items ];
         }
-        
     }
-
-  
 }
 
 
