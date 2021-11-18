@@ -177,9 +177,9 @@ Route::group(['prefix' => 'Admin', 'as' => 'admin.'], function () {
     });
 
 
-    Route::group(['prefix' => 'Team'], function () {
+    Route::group(['prefix' => 'Team', 'as' => 'Team.'], function () {
 
-        Route::group(['prefix' => 'Category'], function () {
+        Route::group(['prefix' => 'Category', 'as' => "Category."], function () {
             Route::any('/', "TeamTypeController@index")->name("catetype");
             
             Route::any('/newType', "TeamTypeController@store");

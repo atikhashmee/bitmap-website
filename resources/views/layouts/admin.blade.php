@@ -150,6 +150,12 @@
               <p>Contact Page</p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ route('admin.Team.Category.catetype') }}" class="nav-link @if(Request::RouteIs('admin.Team.Category.catetype')) active  @endif">
+              <i class="nav-icon fas fa-th"></i>
+              <p>Team Type</p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
