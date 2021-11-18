@@ -240,13 +240,13 @@ Route::group(['prefix' => 'Admin', 'as' => 'admin.'], function () {
         }
 
         return view("components.website-control.contact.contact")->with("contactInfo", \App\ContactForm::find(1));
-    });
+    })->name('contact_page');
     Route::any('SaveContactInfo', 'ContactFormController@store');
 
 //  homestyles  
     Route::any('/Home-styles', function () {
         return view("components.website-control.home.home_styles")->with('homestyles',\App\HomeStyle::where('status', 1)->first());
-    });
+    })->name('home_style_page');
 
     Route::any('/SaveHomeStyle/{id}', "HomeStyleController@store");
 
@@ -261,7 +261,7 @@ Route::group(['prefix' => 'Admin', 'as' => 'admin.'], function () {
             );
         }
         return view("components.website-control.appsetting.app_setting")->with("settinginfo", \App\AppSetting::find(1));
-    });
+    })->name('setting_page');
 
     Route::any('/updateContactForm', "AppSettingController@update");
 

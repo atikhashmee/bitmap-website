@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="{{asset('adminlte/plugins/daterangepicker/daterangepicker.css')}}">
   <!-- summernote -->
   <link rel="stylesheet" href="{{asset('adminlte/plugins/summernote/summernote-bs4.min.css')}}">
+  @yield('styles')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -129,6 +130,24 @@
             <a href="{{ route('admin.Protfolio.protfolio') }}" class="nav-link @if(Request::RouteIs('admin.Protfolio.protfolio')) active  @endif">
               <i class="nav-icon fas fa-th"></i>
               <p>Protfolio</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('admin.setting_page') }}" class="nav-link @if(Request::RouteIs('admin.setting_page')) active  @endif">
+              <i class="nav-icon fas fa-th"></i>
+              <p>Setting</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('admin.home_style_page') }}" class="nav-link @if(Request::RouteIs('admin.home_style_page')) active  @endif">
+              <i class="nav-icon fas fa-th"></i>
+              <p>Home Style</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('admin.contact_page') }}" class="nav-link @if(Request::RouteIs('admin.contact_page')) active  @endif">
+              <i class="nav-icon fas fa-th"></i>
+              <p>Contact Page</p>
             </a>
           </li>
         </ul>
