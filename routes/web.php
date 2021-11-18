@@ -239,16 +239,12 @@ Route::group(['prefix' => 'Admin', 'as' => 'admin.'], function () {
             );
         }
 
-        return view("components.website-control.contact.contact")
-            ->with("contactInfo", \App\ContactForm::find(1));
+        return view("components.website-control.contact.contact")->with("contactInfo", \App\ContactForm::find(1));
     });
-
     Route::any('SaveContactInfo', 'ContactFormController@store');
 
 //  homestyles  
-
     Route::any('/Home-styles', function () {
-
         return view("components.website-control.home.home_styles")->with('homestyles',\App\HomeStyle::where('status', 1)->first());
     });
 
@@ -259,28 +255,23 @@ Route::group(['prefix' => 'Admin', 'as' => 'admin.'], function () {
     Route::any('Settings', function () {
 
         $settings =  \App\AppSetting::find(1);
-
         if ($settings == null) {
-
             \App\AppSetting::firstOrCreate(
                 ['title' => 'Bitmap :: You deserve a good design ']
             );
         }
-        return view("components.website-control.appsetting.app_setting")
-            ->with("settinginfo", \App\AppSetting::find(1));
+        return view("components.website-control.appsetting.app_setting")->with("settinginfo", \App\AppSetting::find(1));
     });
 
     Route::any('/updateContactForm', "AppSettingController@update");
 
 
 // protfolio 
-
-    Route::group(['prefix' => 'Protfolio'], function () {
-
-        Route::group(['prefix' => 'Category'], function () {
+    Route::group(['prefix' => 'Protfolio', 'as' => 'Protfolio.'], function () {
+        Route::group(['prefix' => 'Category', 'as' => 'Category.'], function () {
             Route::any('/', function () {
                 return view("components.website-control.protfolio.category")->with("cat_list", App\ProtfolioCategory::all());
-            });
+            })->name('category_index_page');
             Route::any('SavenewType', "ProtfolioCategoryController@store");
             Route::any('deleteType/{id}', "ProtfolioCategoryController@destroy");
             Route::any('editType/{id}', "ProtfolioCategoryController@edit");

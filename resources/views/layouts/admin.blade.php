@@ -119,6 +119,18 @@
               <p>Testimonial</p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{route("admin.Protfolio.Category.category_index_page")}}" class="nav-link @if(Request::RouteIs('admin.Protfolio.Category.category_index_page')) active  @endif">
+              <i class="nav-icon fas fa-th"></i>
+              <p>Protfolio Categories</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('admin.Protfolio.protfolio') }}" class="nav-link @if(Request::RouteIs('admin.Protfolio.protfolio')) active  @endif">
+              <i class="nav-icon fas fa-th"></i>
+              <p>Protfolio</p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

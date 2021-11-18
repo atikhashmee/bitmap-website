@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\ProtfolioBg;
 use App\Protfolio;
-use App\ProtfolioImage;
+use App\ProtfolioBg;
 use App\ProtfolioFaq;
+use App\ProtfolioImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class ProtfolioController extends Controller
 {
@@ -36,30 +37,35 @@ class ProtfolioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $r)
+    public function store(Request $request)
     {
-          $r->validate([
-              "projecttitle" => 'required',
-              "projecttype"  => 'required'
-          ]);
-          $img = "";
-          if ($r->hasFile("project_cover_photo")) {
-            $img = $r->file("project_cover_photo")->store('prot_bg', 'public');
-          }
+        $Validator = Validator::make($request->all(), [
+            "projecttitle" => 'required',
+            "projecttype"  => 'required'
+        ]);
 
-          Protfolio::create([
-               'protfolio_categories_id'=> $r->input("projecttype"),
-                'project_title'=>$r->input("projecttitle"),
-                'about_project'=>$r->input("about_project"),
-                'description_project'=>$r->input("pro_detail"),
-                'date'=> $r->input("date"),
-                'client_name'=> $r->input("client"),
-                'project_location'=> $r->input("plocation"),
-                'video_url'=> $r->input("vdemo"),
-                'video_description'=> $r->input("vdesc"),
-                'project_cover_photo'=> $img
-          ]);
-          return redirect()->back()->withStatus("Protfolio has been saved");
+        if ($Validator->fails()) {
+            return redirect()->back()->withErrors($Validator)->withInput();
+        }
+
+        $img = "";
+        if ($request->hasFile("project_cover_photo")) {
+            $img = $request->file("project_cover_photo")->store('prot_bg', 'public');
+        }
+
+        Protfolio::create([
+            'protfolio_categories_id'=> $request->input("projecttype"),
+            'project_title'=>$request->input("projecttitle"),
+            'about_project'=>$request->input("about_project"),
+            'description_project'=>$request->input("pro_detail"),
+            'date'=> $request->input("date"),
+            'client_name'=> $request->input("client"),
+            'project_location'=> $request->input("plocation"),
+            'video_url'=> $request->input("vdemo"),
+            'video_description'=> $request->input("vdesc"),
+            'project_cover_photo'=> $img
+        ]);
+        return redirect()->back()->withStatus("Protfolio has been saved");
     }
     public function saveImages(Request $r,$id){
           /* $r->validate([
@@ -127,34 +133,34 @@ class ProtfolioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $r,$id)
+    public function edit(Request $request,$id)
     {
         $category = 0;
         $img= "";
-         if ($r->hasFile('project_cover_photo')) {
-             Storage::disk("public")->delete($r->input("dbimage"));
-             $img =  $r->file("project_cover_photo")->store('prot_bg','public');
+         if ($request->hasFile('project_cover_photo')) {
+             Storage::disk("public")->delete($request->input("dbimage"));
+             $img =  $request->file("project_cover_photo")->store('prot_bg','public');
          }
          else {
-              $img =  $r->input("dbimage");
+              $img =  $request->input("dbimage");
             }
 
-         if (empty($r->input("projecttype"))) {
-             $category = $r->input('dbcategory');
+         if (empty($request->input("projecttype"))) {
+             $category = $request->input('dbcategory');
          }
          else {
-             $category = $r->input('projecttype');
+             $category = $request->input('projecttype');
          }
          Protfolio::where("id",$id)->update([
                'protfolio_categories_id'=> $category,
-                'project_title'=>$r->input("projecttitle"),
-                'about_project'=>$r->input("about_project"),
-                'description_project'=>$r->input("pro_detail"),
-                'date'=> $r->input("date"),
-                'client_name'=> $r->input("client"),
-                'project_location'=> $r->input("plocation"),
-                'video_url'=> $r->input("vdemo"),
-                'video_description'=> $r->input("vdesc"),
+                'project_title'=>$request->input("projecttitle"),
+                'about_project'=>$request->input("about_project"),
+                'description_project'=>$request->input("pro_detail"),
+                'date'=> $request->input("date"),
+                'client_name'=> $request->input("client"),
+                'project_location'=> $request->input("plocation"),
+                'video_url'=> $request->input("vdemo"),
+                'video_description'=> $request->input("vdesc"),
                 'project_cover_photo'=>$img
           ]);
           return redirect()->route("protfolio")->withStatus("Protfolio has been Updated");
@@ -201,6 +207,6 @@ class ProtfolioController extends Controller
          }
          
          $prot->delete();
-         return redirect()->route("protfolio")->withStatus("Protfolio has been deleted");
+         return redirect()->back()->withStatus("Protfolio has been deleted");
     }
 }
