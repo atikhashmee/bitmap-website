@@ -34,7 +34,6 @@
                   </button>
                 </h5>
               </div>
-          
               <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                 <div class="card-body">
                   <form action="{{url("Admin/SaveBgInfo")}}"  method="post"  enctype="multipart/form-data">
@@ -57,7 +56,7 @@
                         </div>
                      </div>
                      <div class="form-group">
-                        <button class="btn btn-sm project-btn btn-primary" type="submit" name="btnupdate">Update</button>
+                        <button class="btn btn-primary" type="submit" name="btnupdate">Update</button>
                      </div>
                   </form>
                 </div>
@@ -337,10 +336,10 @@
          </button>
        </div>
        <div class="modal-body">
-         @if (count($errors->service_list) > 0)
+         @if (count($errors->clients) > 0)
             <div class="alert alert-danger">
                <ul>
-                  @foreach ($errors->service_list->messages() as $error)
+                  @foreach ($errors->clients->messages() as $error)
                      <li>{{ $error[0] }}</li>
                   @endforeach
                </ul>
@@ -390,6 +389,9 @@
          @endif
          @if (count($errors->service_list) > 0)
              $("#service_list_modal").modal('show')
+         @endif
+         @if (count($errors->clients) > 0)
+             $("#client_modal").modal('show')
          @endif
 
       </script>

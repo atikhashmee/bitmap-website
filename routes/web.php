@@ -288,17 +288,12 @@ Route::group(['prefix' => 'Admin', 'as' => 'admin.'], function () {
         });
 
         Route::any('/', function () {
-
-              $prot = \App\ProtfolioBg::find(1);
-
-              if ($prot == null ) {
-
+            $prot = \App\ProtfolioBg::find(1);
+            if ($prot == null ) {
                 \App\ProtfolioBg::firstOrCreate(
                     ['bg_title' => 'Bitmap work History']
                 );
-                
-              }
-
+            }
             return view("components.website-control.protfolio.protfolio")
                 ->with("bginfo", App\ProtfolioBg::first())
                 ->with("prottypes", App\ProtfolioCategory::all())

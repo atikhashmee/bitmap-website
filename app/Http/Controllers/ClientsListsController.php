@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ClientsLists;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class ClientsListsController extends Controller
 {
@@ -34,31 +35,41 @@ class ClientsListsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $r)
+    public function store(Request $request)
     {
-       
-        $validated = $r->validate([
-                 'compnay_name'  => 'required',
-                 'client_avater' => 'required'
-          ]);
-            $client_avatar = "";
-          if ($r->hasFile('client_avater')) {
-            $client_avatar = $r->file("client_avater")->store("Clients","public");
-          }
+
+        $Validator = Validator::make($request->all(), [
+            'compnay_name'  => 'required',
+            'client_avater' => 'required'
+        ]);
+
+        if ($Validator->fails()) {
+            return redirect()->back()->withErrors($Validator, "clients")->withInput();
+        }
+
+        $client_avatar = "";
+
+        if ($request->hasFile('client_avater')) {
+            $client_avatar = $request->file("client_avater")->store("Clients","public");
+        }
+
         ClientsLists::create([
-            'Compnay_name'  =>  $r->input('compnay_name'),
-            'phone _number' =>  $r->input('phone_number'),
-            'email'         =>  $r->input( 'email'),
-            'address'       =>  $r->input( 'address'),
+            'Compnay_name'  =>  $request->input('compnay_name'),
+            'phone _number' =>  $request->input('phone_number'),
+            'email'         =>  $request->input('email'),
+            'address'       =>  $request->input('address'),
             'avater'        =>  $client_avatar
         ]);
+
         return redirect()->back()->withStatus("Data has been Saved");
     }
 
-    public function updateStatus($id,$status){
+    public function updateStatus($id, $status) {
+        
         ClientsLists::where('id',$id)->update([
             'status' => $status
         ]);
+
         return redirect()->back()->withStatus("Client Name has been published to the website");
     }
 
