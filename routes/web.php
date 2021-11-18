@@ -336,7 +336,7 @@ Route::group(['prefix' => 'Admin', 'as' => 'admin.'], function () {
 
           });
 
-          Route::any('Testimonials', "TestimonialController@index");
+          Route::any('Testimonials', "TestimonialController@index")->name('testimonial_page');
           Route::any('saveTestimonial', "TestimonialController@store");
           Route::any('Edit_testimonial/{id}', "TestimonialController@edit");
           Route::any('update_testimonial/{id}', "TestimonialController@update");

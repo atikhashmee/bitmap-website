@@ -113,6 +113,12 @@
               <p>Services</p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{route("admin.testimonial_page")}}" class="nav-link @if(Request::RouteIs('admin.testimonial_page')) active  @endif">
+              <i class="nav-icon fas fa-th"></i>
+              <p>Testimonial</p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
