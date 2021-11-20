@@ -1,14 +1,8 @@
-@extends('layouts.app')
-@section('content')
+@extends('layouts.admin')
 
+@section('content')
    <div class="row">
-      <div class="col-md-3">
-         <div class="left-sidebar-website">
-           @include('components.website-control.webcontrol-menu')
-         </div>
-       </div>
       <div class="col-md-9">
-            @include('components.website-control.webcontrol-header')
          <div class="card card-body">
             <form action="{{ url("Admin/Team/store_new/".$typeid) }}" class="form" method="post" enctype="multipart/form-data">
             @csrf
@@ -68,7 +62,7 @@
             </div>
             <div class="input-group-append">
                <button class="btn btn-outline-primary" type="submit" name="btnsave">Save <i class="fa fa-floppy-o"></i> </button>
-               <a class="btn btn-outline-primary" href="{{ route('teams') }}" name="btnsave">back <i class="fa fa-arrow-left"></i> </a>
+               <a class="btn btn-outline-primary" href="{{ route('admin.Team.teams') }}" name="btnsave">back <i class="fa fa-arrow-left"></i> </a>
             </div>
             </form>
          </div>

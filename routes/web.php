@@ -32,30 +32,24 @@ use function GuzzleHttp\json_encode;
 
 
 Route::get('/', function () {
-
-      //check if the database is empty with any records
-       $homestyles = HomeStyle::where("status",1);
-       if ($homestyles->count() == 0 || $homestyles->get() == null) {
-
-                Artisan::call('db:seed', [
-                    '--class' => 'HomeStyelSeeder'
-                ]);
-
-                $homestyleobj  = HomeStyle::first(); //update the first record so that it shows the active result 
-                $homestyleobj->status = "1";
-                $homestyleobj->save();
-          
-       }
-       //check for homesettings 
+    //check if the database is empty with any records
+    $homestyles = HomeStyle::where("status", 1);
+    if ($homestyles->count() == 0 || $homestyles->get() == null) {
+            Artisan::call('db:seed', [
+                '--class' => 'HomeStyelSeeder'
+            ]);
+            $homestyleobj  = HomeStyle::first(); //update the first record so that it shows the active result 
+            $homestyleobj->status = "1";
+            $homestyleobj->save();
+    }
+    //check for homesettings 
          
-         if (AppSetting::first() == null) {
-            AppSetting::firstOrCreate(
-                ['title' => 'You deserve a good design']
-            );
-         }
-
+    if (AppSetting::first() == null) {
+        AppSetting::firstOrCreate(
+            ['title' => 'You deserve a good design']
+        );
+    }
     $homename = HomeStyle::where("status",1)->first()->home_style_title;
-
     switch ($homename) {
         case 'default_home':
             return view('site.home-styles.defaultstyle')
@@ -81,8 +75,6 @@ Route::get('/', function () {
 });
 
 Route::get('/About', function () {
-   // dd( public_path()."/Storage/");
-     
     return view("site.about")
     ->with("about_info",About::where("id",1)->first())
     ->with('teamtype',TeamType::all())
@@ -132,15 +124,12 @@ Route::get('/About', function () {
 
   Route::group(['prefix' => 'Admin'], function () {
     Auth::routes();
-    
-   Route::any('user_lists', "Auth\RegisterController@index")->name('user_list');
-   Route::any('Profile', "Auth\RegisterController@profile");
-   Route::any('UpdateProfile', "Auth\RegisterController@updateProfile");
-   Route::any('edit_user/{user_id}', "Auth\RegisterController@edit");
-   Route::any('update_user/{user_id}', "Auth\RegisterController@updateUser");
-   Route::any('delete_user/{user_id}', "Auth\RegisterController@destroy");
-   
-    
+    Route::any('user_lists', "Auth\RegisterController@index")->name('user_list');
+    Route::any('Profile', "Auth\RegisterController@profile");
+    Route::any('UpdateProfile', "Auth\RegisterController@updateProfile");
+    Route::any('edit_user/{user_id}', "Auth\RegisterController@edit");
+    Route::any('update_user/{user_id}', "Auth\RegisterController@updateUser");
+    Route::any('delete_user/{user_id}', "Auth\RegisterController@destroy");
   });
 
 
@@ -150,7 +139,7 @@ Route::get('/About', function () {
 Route::group(['prefix' => 'Admin', 'as' => 'admin.'], function () {
 
     Route::any('/', function () {
-         return redirect('Admin/login');
+        return redirect('Admin/login');
     });
 
 
@@ -178,10 +167,8 @@ Route::group(['prefix' => 'Admin', 'as' => 'admin.'], function () {
 
 
     Route::group(['prefix' => 'Team', 'as' => 'Team.'], function () {
-
         Route::group(['prefix' => 'Category', 'as' => "Category."], function () {
             Route::any('/', "TeamTypeController@index")->name("catetype");
-            
             Route::any('/newType', "TeamTypeController@store");
             Route::any('/edit/{id}', "TeamTypeController@show");
             Route::any('/update/{id}', "TeamTypeController@update");
@@ -193,13 +180,8 @@ Route::group(['prefix' => 'Admin', 'as' => 'admin.'], function () {
         Route::any("/updateMember/{id}", "TeamMembersController@update");
         Route::any("/deleteMember/{id}", "TeamMembersController@destroy");
         Route::any("/store_new/{typeid}", "TeamMembersController@store");
-
-
         // team view for display
-
-        
         Route::any('/ourMember', 'TeamMembersController@teamView');
-        
     });
 
       
@@ -231,14 +213,12 @@ Route::group(['prefix' => 'Admin', 'as' => 'admin.'], function () {
 
 //  contact page 
     Route::any('/Contact-page', function () {
-
         $contact = \App\ContactForm::find(1);
         if ($contact == null) {
             \App\ContactForm::firstOrCreate(
                 ['contact_heading' => 'Contact Bitmap']
             );
         }
-
         return view("components.website-control.contact.contact")->with("contactInfo", \App\ContactForm::find(1));
     })->name('contact_page');
     Route::any('SaveContactInfo', 'ContactFormController@store');
@@ -335,12 +315,11 @@ Route::group(['prefix' => 'Admin', 'as' => 'admin.'], function () {
 
 
           Route::group(['prefix' => 'Invoice'], function () {
-
                 //   making quotation and all that
                 Route::any('Create', function () {
                     $itemheads = InvoiceHead::all();
                     $heads = [];
-                    foreach ( $itemheads as $itemh) {
+                    foreach ($itemheads as $itemh) {
                         array_push( $heads, $itemh->item_head_name);
                     }
                     return view("components.accessories.qutation")
@@ -364,19 +343,19 @@ Route::group(['prefix' => 'Admin', 'as' => 'admin.'], function () {
 
         
         Route::any('Prev', function () {
-        return view( "components.accessories.print_preview");
+            return view( "components.accessories.print_preview");
         });
       
         Route::any('/pdfview', function () {
-        //$pdf = App::make('dompdf.wrapper');
-       // $pdf->loadHTML('<h1>Test</h1>');
+            //$pdf = App::make('dompdf.wrapper');
+            // $pdf->loadHTML('<h1>Test</h1>');
 
-         //$pdf = PDF::loadView('components.accessories.print_the_page');
-      $pdf = PDF::loadView( 'components.accessories.test2')->setPaper('a4','Portrait');
-        // return $pdf->stream('invoice.pdf');
-        //  return view('components.accessories.print_the_page');
-          //return view('components.accessories.test2');
-       return $pdf->stream();
+            //$pdf = PDF::loadView('components.accessories.print_the_page');
+            $pdf = PDF::loadView( 'components.accessories.test2')->setPaper('a4','Portrait');
+            // return $pdf->stream('invoice.pdf');
+            //  return view('components.accessories.print_the_page');
+            //return view('components.accessories.test2');
+            return $pdf->stream();
         });
            
        });
@@ -466,9 +445,7 @@ Route::resource('Admin/Accounts/expenditures', 'Accounts\ExpendituresController'
 Route::resource('Admin/Accounts/saleryKeys', 'Accounts\SaleryKeysController');
 
  Route::any('Admin/Accounts/employee_salery', function () {
-       
-           return view('components.accounts.employee-salery')
-           ->with('teams',\App\TeamMembers::all());
+    return view('components.accounts.employee-salery')->with('teams',\App\TeamMembers::all());
  });
 
 

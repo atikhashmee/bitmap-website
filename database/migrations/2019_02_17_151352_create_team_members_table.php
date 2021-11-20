@@ -17,6 +17,8 @@ class CreateTeamMembersTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('team_types_id');
             $table->foreign('team_types_id')->references('id')->on('team_types')->onDelete('cascade');
+            $table->string('visibility', 200)->nullable();
+            $table->string('employee_status', 200)->nullable();
             $table->string('member_name', 200);
             $table->string('designation', 200)->nullable();
             $table->mediumText('description')->nullable();

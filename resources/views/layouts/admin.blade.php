@@ -156,6 +156,12 @@
               <p>Team Type</p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ route('admin.Team.teams') }}" class="nav-link @if(Request::RouteIs('admin.Team.teams')) active  @endif">
+              <i class="nav-icon fas fa-th"></i>
+              <p>Team</p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

@@ -74,7 +74,7 @@ class TeamMembersController extends Controller
                 "instagram"   =>   $r->input('instalink'),
                 "memberimage" =>    $img
         ]); 
-      return redirect()->route('teams')->withStatus("Data has been saved");
+      return redirect()->back()->withStatus("Data has been saved");
     }
 
     /**
