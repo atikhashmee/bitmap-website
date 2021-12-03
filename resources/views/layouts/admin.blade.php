@@ -162,6 +162,15 @@
               <p>Team</p>
             </a>
           </li>
+          <li class="nav-item">
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+              @csrf
+          </form>
+            <a onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>Logout</p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
